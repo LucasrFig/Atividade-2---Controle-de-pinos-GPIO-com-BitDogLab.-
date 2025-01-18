@@ -1,23 +1,22 @@
 #include <stdio.h>
+#include <string.h>
 #include "pico/stdlib.h"
 #include "pico/bootrom.h"
 #include "reboot.h"
 
-#define LED_RED 13
-#define LED_BLUE 12
-#define LED_GREEN 11
-
-
+//Definir macros:
 int main()
 {
-    gpio_init(LED_RED);
-    gpio_init(LED_BLUE);
-    gpio_init(LED_GREEN);
-    gpio_set_dir(LED_RED,GPIO_OUT);
-    gpio_set_dir(LED_BLUE,GPIO_OUT);
-    gpio_set_dir(LED_GREEN,GPIO_OUT);
-
+    //Inicializar leds:
+    //Inicializar buzzer:
+    //Set_direction:
+    //Inicializar buffer para ler comando:
     while (true) {
-        
+        //ler comando:     
+        //
+        if(!strcmp(,"LED_RED")){//se o comando for "LED_RED"
+        }else if(){//se o comando for "LED_BLUE"
+        }else{//Se o comando for desconhecido
+        }
     }
 }
