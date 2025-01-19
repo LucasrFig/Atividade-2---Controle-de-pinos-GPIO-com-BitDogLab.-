@@ -30,15 +30,19 @@ Decidimos que cada integrante ficasse encarregado por criar uma branch no git, f
 O programa oferece funcionalidades a partir dos seguintes comandos:
 
 **Comando 'Ligar Azul':** Acende o LED Azul (Apaga os demais LEDs).
+
 **Comando 'Desligar Azul':** Apaga o LED Azul.
 
 **Comando 'Ligar Verde':** Acende o LED Verde(Apaga os demais LEDs).
+
 **Comando 'Desligar Verde':** Apaga o LED Verde.
 
 **Comando 'Ligar Vermelho':** Acende o LED Vermelho(Apaga os demais LEDs).
+
 **Comando 'Desligar Vermelho':** Apaga o LED Vermelho.
 
 **Comando 'Ligar Todos':** Acende todos os LEDs.
+
 **Comando 'Desligar Todos':** Apaga todos os LEDs.
 
 **Comando 'Ligar Buzzer':** Aciona o Buzzer por um breve período.
