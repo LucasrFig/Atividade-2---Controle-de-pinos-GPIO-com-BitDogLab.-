@@ -1,5 +1,5 @@
 ──────────────────────────────────────────────────────────────────────  
-# PROJETO - CONTROLE DE PINOS GPIO UTILIZANDO COMUNICAÇÃO SERIAL UART
+# PROJETO - CONTROLE DE PINOS GPIO UTILIZANDO COMUNICAÇÃO SERIAL
 (SUB GRUPO 6 - ATIVIDADE 2)  
 **Equipe do Projeto:** 
 
@@ -16,7 +16,7 @@
 ## OBJETIVO DO PROJETO  
 ──────────────────────────────────────────────────────────────────────  
 
-O objetivo deste projeto é criar um sistema de controle de pinos GPIO (General Purpose Input/Output) utilizando a comunicação serial por meio da interface UART. Através desse sistema, será possível acionar os LEDs RGB, o buzzer e por a placa em modo bootloader com base nos comandos recebidos pelo terminal, oferecendo uma interação simples e prática com o microcontrolador. 
+O objetivo deste projeto é criar um sistema de controle de pinos GPIO (General Purpose Input/Output) utilizando a comunicação serial. Através desse sistema, será possível acionar os LEDs RGB, o buzzer e por a placa em modo bootloader com base nos comandos recebidos pelo terminal, oferecendo uma interação simples e prática com o microcontrolador. 
 
 ──────────────────────────────────────────────────────────────────────  
 ## METODOLOGIA ESCOLHIDA PARA REALIZAÇÃO DO PROJETO
@@ -97,15 +97,15 @@ O programa segue a seguinte estrutura de funcionamento:
 ──────────────────────────────────────────────────────────────────────  
 ## CONCLUSÃO  
 ──────────────────────────────────────────────────────────────────────  
-Neste projeto, exploramos o controle de pinos GPIO por meio do protocolo UART, um dos pilares da comunicação em sistemas embarcados. Com o auxílio do PuTTY como emulador de terminal, interagimos diretamente com o microcontrolador via comunicação serial, ampliando as possibilidades de controle. Essa experiência prática foi fundamental para aprofundar nosso domínio em protocolos de comunicação, além de otimizar nossas habilidades no desenvolvimento de códigos eficientes.
+Neste projeto, exploramos o controle de pinos GPIO por meio do protocolo Serial, um dos pilares da comunicação em sistemas embarcados. Com o auxílio do PuTTY como emulador de terminal, interagimos diretamente com o microcontrolador via comunicação serial, ampliando as possibilidades de controle. Essa experiência prática foi fundamental para aprofundar nosso domínio em protocolos de comunicação, além de otimizar nossas habilidades no desenvolvimento de códigos eficientes.
 
 ──────────────────────────────────────────────────────────────────────  
-## EQUIPE DO PROJETO - CONTROLE DE PINOS GPIO UTILIZANDO COMUNICAÇÃO SERIAL UART
-UTILIZANDO COMUNICAÇÃO VIA PROTOCOLO UART
+## EQUIPE DO PROJETO - CONTROLE DE PINOS GPIO UTILIZANDO COMUNICAÇÃO SERIAL
+UTILIZANDO COMUNICAÇÃO VIA PROTOCOLO SERIAL
 *Subgrupo 6 - Atividade 2*  
 ──────────────────────────────────────────────────────────────────────
 
 ──────────────────────────────────────────────────────────────────────  
 ## VÍDEO DO PROJETO  
 ────────────────────────────────────────────────────────────────────── 
- 
+ https://ifbaedubr-my.sharepoint.com/:v:/g/personal/2017209029_ifba_edu_br/EcBHhu5zcXtKjlEiGAI7BhYB2e8IyHIAnxPwipm59tyZyA?e=y4N680
