@@ -49,54 +49,54 @@ void ligar_todos_leds() {
     gpio_put(LED_VERMELHO, 1);
 }
 
-void executar_comando(const char *comando) {
+int executar_comando(char *comando) {
     // LIGAR LED AZUL
-    if (strcmp(comando, "Ligar Azul") == 0) {
+    if (!strcmp(comando, "BLUE_ON")) {
         ligar_led(LED_AZUL);
         printf("LED Azul Ligado\n");
 
     // DESLIGAR LED AZUL
-    } else if (strcmp(comando, "Desligar Azul") == 0) {
+    } else if (!strcmp(comando, "BLUE_OFF")) {
         gpio_put(LED_AZUL, 0);
         printf("LED Azul Desligado\n");
 
     // LIGAR LED VERDE
-    } else if (strcmp(comando, "Ligar Verde") == 0) {
+    } else if (!strcmp(comando, "GREEN_ON")) {
         ligar_led(LED_VERDE);
         printf("LED Verde Ligado\n");
 
     // DESLIGAR LED VERDE
-    } else if (strcmp(comando, "Desligar Verde") == 0) {
+    } else if (!strcmp(comando, "GREEN_OFF")) {
         gpio_put(LED_VERDE, 0);
         printf("LED Verde Desligado\n");
 
     // LIGAR LED VERMELHO
-    } else if (strcmp(comando, "Ligar Vermelho") == 0) {
+    } else if (!strcmp(comando, "RED_ON")) {
         ligar_led(LED_VERMELHO);
         printf("LED Vermelho Ligado\n");
 
     // DESLIGAR LED VERMELHO
-    } else if (strcmp(comando, "Desligar Vermelho") == 0) {
+    } else if (!strcmp(comando, "RED_OFF")) {
         gpio_put(LED_VERMELHO, 0);
         printf("LED Vermelho Desligado\n");
 
     // LIGAR TODOS OS LEDS
-    } else if (strcmp(comando, "Ligar Todos") == 0) {
+    } else if (!strcmp(comando, "ALL_ON")) {
         ligar_todos_leds();
         printf("Todos os LEDs ligados\n");
 
     // DESLIGAR TODOS OS LEDS
-    } else if (strcmp(comando, "Desligar Todos") == 0) {
+    } else if (!strcmp(comando, "ALL_OFF")) {
         desligar_leds();
         printf("Todos os LEDs desligados\n");
 
     // ACIONAR BUZZER
-    } else if (strcmp(comando, "Ligar Buzzer") == 0) {
+    } else if (!strcmp(comando, "BUZZER_ON")) {
         printf("Buzzer Ligado\n");
         acionar_Buzzer(BUZZER_A);
 
     // POR PLACA EM MODO BOOTLOADER
-    } else if (strcmp(comando, "Reboot") == 0) {
+    } else if (!strcmp(comando, "REBOOT")) {
         printf("Reiniciando o sistema no modo de gravação...\n");
         reboot(LED_VERMELHO);
 
@@ -109,19 +109,16 @@ void executar_comando(const char *comando) {
 int main() {
     // Inicializar funções da stdio
     stdio_init_all();
-
     // Inicializar periféricos
     setup_gpio();
-
+    
     char buffer[1024]; // Buffer para armazenar o comando
 
     while (true) {
         printf("Digite um comando: ");
-        if (fgets(buffer, sizeof(buffer), stdin)) {
-            // Remover o caractere de nova linha, se presente
-            buffer[strcspn(buffer, "\r\n")] = '\0';
-            executar_comando(buffer);
-        }
+        scanf("%s",&buffer);
+        printf("%s\n",buffer);
+        executar_comando(buffer);
+        sleep_ms(10);
     }
 }
-
