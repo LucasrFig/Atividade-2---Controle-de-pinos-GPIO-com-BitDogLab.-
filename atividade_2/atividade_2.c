@@ -23,6 +23,7 @@ void executar_comando(const char *comando) {
         gpio_put(LED_AZUL, 0); // Desliga o LED
         gpio_put(LED_VERDE, 0);
         gpio_put(LED_VERMELHO, 0);
+
         uart_puts(UART_ID, "LED Azul Desligado\n");
     } 
     if (strcmp(comando, "Ligar Verde") == 0) {
