@@ -17,9 +17,7 @@
 
 void executar_comando(const char *comando) {
     if (strcmp(comando, "Ligar Azul") == 0) {
-        gpio_put(LED_AZUL, 1); // Liga o LED 
-        gpio_put(LED_VERDE, 0);
-        gpio_put(LED_VERMELHO, 0);
+         ligar_led(LED_AZUL);
         uart_puts(UART_ID, "LED Azul Ligado\n");
     } else if (strcmp(comando, "Desligar Azul") == 0) {
         gpio_put(LED_AZUL, 0); // Desliga o LED
@@ -29,9 +27,7 @@ void executar_comando(const char *comando) {
         uart_puts(UART_ID, "LED Azul Desligado\n");
     } 
     if (strcmp(comando, "Ligar Verde") == 0) {
-        gpio_put(LED_VERDE, 1); // Liga o LED 
-        gpio_put(LED_AZUL, 0);
-        gpio_put(LED_VERMELHO, 0);
+       ligar_led(LED_VERDE);
         uart_puts(UART_ID, "LED Verde Ligado\n");
     } else if (strcmp(comando, "Desligar Verde") == 0) {
         gpio_put(LED_VERDE, 0); // Desliga o LED
@@ -40,9 +36,7 @@ void executar_comando(const char *comando) {
         uart_puts(UART_ID, "LED Verde Desligado\n");
     }
     if (strcmp(comando, "Ligar Vermelho") == 0) {
-        gpio_put(LED_VERMELHO, 1); // Liga o LED 
-        gpio_put(LED_VERDE, 0);
-        gpio_put(LED_AZUL, 0);
+       ligar_led(LED_VERMELHO);
         uart_puts(UART_ID, "LED Vermelho Ligado\n");
     } else if (strcmp(comando, "Desligar Vermelho") == 0) {
         gpio_put(LED_VERMELHO, 0); // Desliga o LED
@@ -65,14 +59,14 @@ void executar_comando(const char *comando) {
 //Definir macros:
 int main()
 {
-    //Inicializar leds:
+    //Inicializar portas:
     //Inicializar buzzer:
     //Set_direction:
     //Inicialização da UART
     uart_init(UART_ID, TRANSMISSAO);
     gpio_set_function(UART_TX, GPIO_FUNC_UART);
     gpio_set_function(UART_RX, GPIO_FUNC_UART);
-
+    setup_gpio();
     uart_puts(UART_ID, "Sistema Iniciado\n");
 
     char buffer[32]; // Buffer para armazenar o comando
