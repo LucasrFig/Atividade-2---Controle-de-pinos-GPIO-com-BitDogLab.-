@@ -4,20 +4,12 @@
 #include "pico/bootrom.h"
 #include "reboot.h"
 #include "buzzer_A.h"
-#include "hardware/uart.h"
 
-//DEFINIR PORTAS GPIO
+// DEFINIR PORTAS GPIO
 #define LED_AZUL 12
 #define LED_VERDE 11
 #define LED_VERMELHO 13
 #define BUZZER_A 21
-
-//DEFINIR MACROS UART
-#define UART_ID uart0
-#define UART_TX 0
-#define UART_RX 1
-#define TRANSMISSAO 115200
-
 
 // Função para inicializar os GPIOs
 void setup_gpio() {
@@ -57,101 +49,79 @@ void ligar_todos_leds() {
     gpio_put(LED_VERMELHO, 1);
 }
 
-
-//Executa uma ação de acorodo com o comando fornecido
 void executar_comando(const char *comando) {
-    //LIGAR LED AZUL
+    // LIGAR LED AZUL
     if (strcmp(comando, "Ligar Azul") == 0) {
         ligar_led(LED_AZUL);
-        uart_puts(UART_ID, "LED Azul Ligado\n");
+        printf("LED Azul Ligado\n");
 
-    //DESLIGAR LED AZUL
-    }else if (strcmp(comando, "Desligar Azul") == 0) {
-            gpio_put(LED_AZUL, 0); 
-            uart_puts(UART_ID, "LED Azul Desligado\n");
+    // DESLIGAR LED AZUL
+    } else if (strcmp(comando, "Desligar Azul") == 0) {
+        gpio_put(LED_AZUL, 0);
+        printf("LED Azul Desligado\n");
 
-    //LIGAR LED VERDE
-    }else if (strcmp(comando, "Ligar Verde") == 0) {
-            ligar_led(LED_VERDE);
-            uart_puts(UART_ID, "LED Verde Ligado\n");
+    // LIGAR LED VERDE
+    } else if (strcmp(comando, "Ligar Verde") == 0) {
+        ligar_led(LED_VERDE);
+        printf("LED Verde Ligado\n");
 
-    //DESLIGAR LED VERDE
-    }else if (strcmp(comando, "Desligar Verde") == 0) {
-            gpio_put(LED_VERDE, 0);
-            uart_puts(UART_ID, "LED Verde Desligado\n");
+    // DESLIGAR LED VERDE
+    } else if (strcmp(comando, "Desligar Verde") == 0) {
+        gpio_put(LED_VERDE, 0);
+        printf("LED Verde Desligado\n");
 
-    //LIGAR LED VERMELHO
-    }else if (strcmp(comando, "Ligar Vermelho") == 0) {
-            ligar_led(LED_VERMELHO);
-            uart_puts(UART_ID, "LED Vermelho Ligado\n");
+    // LIGAR LED VERMELHO
+    } else if (strcmp(comando, "Ligar Vermelho") == 0) {
+        ligar_led(LED_VERMELHO);
+        printf("LED Vermelho Ligado\n");
 
-    //DESLIGAR LED VERMELHO
-    }else if (strcmp(comando, "Desligar Vermelho") == 0) {
-            gpio_put(LED_VERMELHO, 0);
-            uart_puts(UART_ID, "LED Vermelho Desligado\n");
+    // DESLIGAR LED VERMELHO
+    } else if (strcmp(comando, "Desligar Vermelho") == 0) {
+        gpio_put(LED_VERMELHO, 0);
+        printf("LED Vermelho Desligado\n");
 
-    //LIGAR TODOS OS LED
-    }else if (strcmp(comando, "Ligar Todos") == 0) {
-            gpio_put(LED_VERMELHO, 0);
-            uart_puts(UART_ID, "Todos os LEDs ligados\n");
+    // LIGAR TODOS OS LEDS
+    } else if (strcmp(comando, "Ligar Todos") == 0) {
+        ligar_todos_leds();
+        printf("Todos os LEDs ligados\n");
 
-    //DESLIGAR TODOS OS LED
-    }else if (strcmp(comando, "Desligar Todos") == 0) {
-            gpio_put(LED_VERMELHO, 0);
-            uart_puts(UART_ID, "Todos os LEDs desligados\n");
+    // DESLIGAR TODOS OS LEDS
+    } else if (strcmp(comando, "Desligar Todos") == 0) {
+        desligar_leds();
+        printf("Todos os LEDs desligados\n");
 
-    //ACIONAR BUZZER
-    }else if (strcmp(comando, "Ligar Buzzer") == 0) {
-        uart_puts(UART_ID, "Buzzer Ligado\n");
+    // ACIONAR BUZZER
+    } else if (strcmp(comando, "Ligar Buzzer") == 0) {
+        printf("Buzzer Ligado\n");
         acionar_Buzzer(BUZZER_A);
 
-    //POR PLACA EM MODO BOOTLOADER    
-    }else if (strcmp(comando, "Reboot") == 0) {
-        uart_puts(UART_ID, "Reiniciando o sistema no modo de gravação...\n");
+    // POR PLACA EM MODO BOOTLOADER
+    } else if (strcmp(comando, "Reboot") == 0) {
+        printf("Reiniciando o sistema no modo de gravação...\n");
         reboot(LED_VERMELHO);
-    }else{
-        uart_puts(UART_ID, "Comando desconhecido\n");
+
+    // COMANDO DESCONHECIDO
+    } else {
+        printf("Comando desconhecido: %s\n", comando);
     }
 }
 
-
-//Definir macros:
-int main()
-{
-    //inicializanção funções da stdio
+int main() {
+    // Inicializar funções da stdio
     stdio_init_all();
 
-    //Inicializar periféricos
+    // Inicializar periféricos
     setup_gpio();
 
-    //Inicializar UART
-    stdio_usb_init();
-    uart_init(UART_ID, TRANSMISSAO);
-    gpio_set_function(UART_TX, GPIO_FUNC_UART);
-    gpio_set_function(UART_RX, GPIO_FUNC_UART);
-    uart_puts(UART_ID, "Sistema Iniciado\n");
-
-    char buffer[32]; // Buffer para armazenar o comando
-    int idx = 0;     // Índice do buffer
+    char buffer[1024]; // Buffer para armazenar o comando
 
     while (true) {
-        //ler comando:     
-        //
-        if (uart_is_readable(UART_ID)) {
-            char c = uart_getc(UART_ID); // Lê um caractere
-            uart_putc(UART_ID, c);       // Ecoa o caractere recebido (opcional)
-
-            // Verifica se o caractere é de término
-            if (c == '\n' || c == '\r') {
-                buffer[idx] = '\0'; // Finaliza a string
-                executar_comando(buffer); // Chama a função para processar o comando
-                idx = 0; // Reseta o índice
-            } else {
-                buffer[idx++] = c; // Adiciona o caractere ao buffer
-                if (idx >= sizeof(buffer) - 1) {
-                    idx = 0; // Evita overflow do buffer
-                }
-            }
+        printf("Digite um comando: ");
+        if (fgets(buffer, sizeof(buffer), stdin)) {
+            // Remover o caractere de nova linha, se presente
+            buffer[strcspn(buffer, "\r\n")] = '\0';
+            executar_comando(buffer);
         }
     }
 }
+
