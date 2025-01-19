@@ -3,6 +3,7 @@
 #include "pico/stdlib.h"
 #include "pico/bootrom.h"
 #include "reboot.h"
+#include "buzzer_A.h"
 #include "hardware/uart.h"
 
 //DEFINIR PORTAS GPIO
@@ -15,7 +16,7 @@
 #define UART_ID uart0
 #define UART_TX 0
 #define UART_RX 1
-#define TRANSMISSAO 15200
+#define TRANSMISSAO 115200
 
 
 // Função para inicializar os GPIOs
@@ -23,12 +24,12 @@ void setup_gpio() {
     gpio_init(LED_VERDE);
     gpio_init(LED_AZUL);
     gpio_init(LED_VERMELHO);
-    gpio_init(BUZZER_A);
 
     gpio_set_dir(LED_VERDE, GPIO_OUT);
     gpio_set_dir(LED_AZUL, GPIO_OUT);
     gpio_set_dir(LED_VERMELHO, GPIO_OUT);
-    gpio_set_dir(BUZZER_A, GPIO_OUT);
+
+    Ativar_Buzzer(BUZZER_A);
 
     // Inicialmente, todos desligados
     gpio_put(LED_VERDE, 0);
@@ -88,15 +89,26 @@ void executar_comando(const char *comando) {
     }else if (strcmp(comando, "Desligar Vermelho") == 0) {
             gpio_put(LED_VERMELHO, 0);
             uart_puts(UART_ID, "LED Vermelho Desligado\n");
-            
+
+    //LIGAR TODOS OS LED
+    }else if (strcmp(comando, "Ligar Todos") == 0) {
+            gpio_put(LED_VERMELHO, 0);
+            uart_puts(UART_ID, "Todos os LEDs ligados\n");
+
+    //DESLIGAR TODOS OS LED
+    }else if (strcmp(comando, "Desligar Todos") == 0) {
+            gpio_put(LED_VERMELHO, 0);
+            uart_puts(UART_ID, "Todos os LEDs desligados\n");
+
     //ACIONAR BUZZER
     }else if (strcmp(comando, "Ligar Buzzer") == 0) {
-        // Liga o buzzeR
         uart_puts(UART_ID, "Buzzer Ligado\n");
+        acionar_Buzzer(BUZZER_A);
 
     //POR PLACA EM MODO BOOTLOADER    
     }else if (strcmp(comando, "Reboot") == 0) {
-        // Põe em Reboot
+        uart_puts(UART_ID, "Reiniciando o sistema no modo de gravação...\n");
+        reboot(LED_VERMELHO);
     }else{
         uart_puts(UART_ID, "Comando desconhecido\n");
     }
@@ -106,10 +118,14 @@ void executar_comando(const char *comando) {
 //Definir macros:
 int main()
 {
+    //inicializanção funções da stdio
+    stdio_init_all();
+
     //Inicializar periféricos
     setup_gpio();
 
     //Inicializar UART
+    stdio_usb_init();
     uart_init(UART_ID, TRANSMISSAO);
     gpio_set_function(UART_TX, GPIO_FUNC_UART);
     gpio_set_function(UART_RX, GPIO_FUNC_UART);
